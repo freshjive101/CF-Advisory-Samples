@@ -755,7 +755,7 @@
     <button class="tab-btn" data-tab="games">Games</button>
     <button class="tab-btn" data-tab="tracker">Tracker</button>
     <button class="tab-btn" data-tab="stats">Stats</button>
-    <button class="tab-btn" data-tab="formation">Positions</button>
+    <button class="tab-btn" data-tab="formation">Formations</button>
     <button class="tab-btn" data-tab="comms">Weekly Msg</button>
     <button class="tab-btn" data-tab="parents">Parents</button>
     <button class="tab-btn" data-tab="oranges">Oranges</button>
@@ -954,7 +954,7 @@
   <!-- FORMATION -->
   <section class="panel" id="formation">
     <div class="card">
-      <h2>Player Positions (5v5)</h2>
+      <h2>Formations (5v5)</h2>
       <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 14px;">
         4 outfield players plus a goalie. Toggle possession to show kids how they shift forward and back.
       </p>
@@ -963,8 +963,9 @@
         <div class="control-row">
           <span class="control-label">Formation</span>
           <div class="formation-toggle">
+            <button id="form-1-3" onclick="setFormation('1-3')">1-3</button>
             <button id="form-2-2" class="active" onclick="setFormation('2-2')">2-2</button>
-            <button id="form-3-1" onclick="setFormation('3-1')">3-1</button>
+            <button id="form-1-1-2" onclick="setFormation('1-1-2')">1-1-2</button>
           </div>
         </div>
         <div class="control-row">
@@ -1209,8 +1210,9 @@ function loadState() {
       });
       if (!state.orangeAssignments) state.orangeAssignments = {};
       if (state.formation === '2-2-1') state.formation = '2-2';
-      if (state.formation === '3-1-2') state.formation = '3-1';
-      if (!['2-2', '3-1'].includes(state.formation)) state.formation = '2-2';
+      if (state.formation === '3-1-2') state.formation = '1-1-2';
+      if (state.formation === '3-1') state.formation = '2-2';
+      if (!['1-3', '2-2', '1-1-2'].includes(state.formation)) state.formation = '2-2';
       if (!state.toneOverride) state.toneOverride = 'auto';
       // Players need age field
       state.players.forEach(p => { if (p.age === undefined) p.age = ''; });
@@ -1889,9 +1891,22 @@ function resetStats() {
 
 /* ========= FORMATION ========= */
 const formations = {
+  '1-3': {
+    name: '1-3 Formation',
+    desc: '1 defender and 3 forwards. All-out attack. Use when you need goals, but be ready - the defender needs help from forwards tracking back.',
+    players: [
+      { label: 'GK', role: 'GK', offense: { x: 200, y: 540 }, defense: { x: 200, y: 555 } },
+      // 1 defender - center
+      { label: 'D', role: 'DEF', offense: { x: 200, y: 400 }, defense: { x: 200, y: 470 } },
+      // 3 forwards - left, center, right
+      { label: 'F1', role: 'FWD', offense: { x: 100, y: 130 }, defense: { x: 100, y: 270 } },
+      { label: 'F2', role: 'FWD', offense: { x: 200, y: 100 }, defense: { x: 200, y: 250 } },
+      { label: 'F3', role: 'FWD', offense: { x: 300, y: 130 }, defense: { x: 300, y: 270 } }
+    ]
+  },
   '2-2': {
     name: '2-2 Formation',
-    desc: '2 defenders and 2 forwards. Balanced setup - everyone has a clear job.',
+    desc: '2 defenders and 2 forwards. Balanced setup - everyone has a clear job. Great for new teams.',
     players: [
       { label: 'GK', role: 'GK', offense: { x: 200, y: 540 }, defense: { x: 200, y: 555 } },
       { label: 'D1', role: 'DEF', offense: { x: 130, y: 380 }, defense: { x: 130, y: 460 } },
@@ -1900,23 +1915,27 @@ const formations = {
       { label: 'F2', role: 'FWD', offense: { x: 270, y: 130 }, defense: { x: 270, y: 270 } }
     ]
   },
-  '3-1': {
-    name: '3-1 Formation',
-    desc: '3 defenders and 1 forward. Defensive setup - good for protecting a lead.',
+  '1-1-2': {
+    name: '1-1-2 Formation',
+    desc: '1 defender, 1 midfielder, 2 forwards. The midfielder is the engine - links defense and attack. Best when you have a strong, fit player to play in the middle.',
     players: [
       { label: 'GK', role: 'GK', offense: { x: 200, y: 540 }, defense: { x: 200, y: 555 } },
-      { label: 'D1', role: 'DEF', offense: { x: 100, y: 400 }, defense: { x: 100, y: 470 } },
-      { label: 'D2', role: 'DEF', offense: { x: 200, y: 410 }, defense: { x: 200, y: 480 } },
-      { label: 'D3', role: 'DEF', offense: { x: 300, y: 400 }, defense: { x: 300, y: 470 } },
-      { label: 'F', role: 'FWD', offense: { x: 200, y: 110 }, defense: { x: 200, y: 250 } }
+      // 1 defender - center
+      { label: 'D', role: 'DEF', offense: { x: 200, y: 420 }, defense: { x: 200, y: 480 } },
+      // 1 midfielder - center
+      { label: 'M', role: 'MID', offense: { x: 200, y: 280 }, defense: { x: 200, y: 360 } },
+      // 2 forwards - left and right
+      { label: 'F1', role: 'FWD', offense: { x: 130, y: 120 }, defense: { x: 130, y: 240 } },
+      { label: 'F2', role: 'FWD', offense: { x: 270, y: 120 }, defense: { x: 270, y: 240 } }
     ]
   }
 };
 
 function setFormation(f) {
   state.formation = f;
+  document.getElementById('form-1-3').classList.toggle('active', f === '1-3');
   document.getElementById('form-2-2').classList.toggle('active', f === '2-2');
-  document.getElementById('form-3-1').classList.toggle('active', f === '3-1');
+  document.getElementById('form-1-1-2').classList.toggle('active', f === '1-1-2');
   saveState();
   renderFormation();
 }
