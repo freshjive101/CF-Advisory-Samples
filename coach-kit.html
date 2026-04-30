@@ -1,0 +1,2502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THPFC Coach Kit | Conrad Frank Advisory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pitch-green: #1f6f3e;
+    --pitch-green-dark: #154d2b;
+    --pitch-green-light: #2d8a52;
+    --line-white: #ffffff;
+    --accent-orange: #ff6b35;
+    --accent-yellow: #ffd23f;
+    --bg-cream: #f6f4ee;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --card-bg: #ffffff;
+    --border: #e5e2d9;
+    --offense: #e63946;
+    --defense: #2a9d8f;
+    --goalie: #f4a261;
+    --bench: #adb5bd;
+    --shadow: 0 4px 14px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--ink);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  header {
+    background: var(--pitch-green);
+    color: var(--line-white);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 4px solid var(--accent-yellow);
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; right: -50px;
+    width: 200px; height: 200px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -50px;
+    width: 200px; height: 200px;
+    border: 3px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.7rem, 5.5vw, 2.6rem);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  header p {
+    margin-top: 6px;
+    opacity: 0.85;
+    font-size: 0.95rem;
+  }
+
+  .club-tag {
+    display: inline-block;
+    background: var(--accent-yellow);
+    color: var(--pitch-green-dark);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  nav {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: var(--shadow);
+  }
+
+  .nav-inner {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-width: max-content;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 16px 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover { color: var(--ink); }
+  .tab-btn.active {
+    color: var(--pitch-green);
+    border-bottom-color: var(--pitch-green);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px;
+  }
+
+  .panel { display: none; animation: fadeIn 0.3s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    color: var(--pitch-green-dark);
+  }
+
+  h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    margin: 16px 0 8px;
+    color: var(--ink);
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .form-row > * { flex: 1; min-width: 120px; }
+
+  input, select, textarea {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--ink);
+    transition: border-color 0.2s;
+    min-height: 44px;
+    width: 100%;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--pitch-green);
+  }
+
+  label.field-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .field-group { margin-bottom: 12px; }
+
+  button.btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary { background: var(--pitch-green); color: var(--line-white); }
+  .btn-primary:hover { background: var(--pitch-green-dark); }
+  .btn-secondary { background: var(--bg-cream); color: var(--ink); border: 1.5px solid var(--border); }
+  .btn-secondary:hover { background: #ebe8df; }
+  .btn-danger { background: transparent; color: var(--offense); border: 1.5px solid var(--offense); padding: 8px 14px; font-size: 0.8rem; min-height: 36px; }
+  .btn-danger:hover { background: var(--offense); color: white; }
+  .btn-accent { background: var(--accent-orange); color: white; }
+  .btn-accent:hover { background: #e85a26; }
+  .btn-small { padding: 6px 12px; font-size: 0.8rem; min-height: 32px; }
+  .btn-full { width: 100%; }
+
+  .roster-list { display: grid; gap: 8px; margin-top: 16px; }
+
+  .player-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg-cream);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .jersey-num {
+    background: var(--pitch-green);
+    color: white;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .player-name { flex: 1; font-weight: 500; min-width: 100px; }
+
+  .player-age {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .active-game-banner {
+    background: linear-gradient(135deg, var(--pitch-green) 0%, var(--pitch-green-light) 100%);
+    color: white;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .active-game-banner.no-game {
+    background: var(--bg-cream);
+    color: var(--muted);
+    border: 1.5px dashed var(--border);
+  }
+
+  .clock-display {
+    background: var(--ink);
+    color: var(--accent-yellow);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .clock-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .position-grid { display: grid; gap: 14px; margin-top: 16px; }
+
+  .position-zone {
+    background: var(--bg-cream);
+    border-radius: 12px;
+    padding: 14px;
+    border-left: 5px solid;
+  }
+
+  .position-zone.offense { border-left-color: var(--offense); }
+  .position-zone.defense { border-left-color: var(--defense); }
+  .position-zone.goalie { border-left-color: var(--goalie); }
+  .position-zone.bench { border-left-color: var(--bench); }
+
+  .zone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .zone-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; }
+  .zone-count { background: var(--ink); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; }
+  .zone-players { display: flex; flex-wrap: wrap; gap: 6px; min-height: 36px; }
+
+  .player-chip {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 10px 6px 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .player-chip:hover { border-color: var(--pitch-green); transform: translateY(-1px); }
+
+  .player-chip .num {
+    background: var(--pitch-green);
+    color: white;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+  }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal h3 { margin-top: 0; }
+
+  .move-options { display: grid; gap: 8px; margin: 16px 0; }
+
+  .move-option {
+    padding: 14px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: white;
+    cursor: pointer;
+    text-align: left;
+    font-weight: 600;
+    transition: all 0.15s;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+
+  .move-option:hover { border-color: var(--pitch-green); background: var(--bg-cream); }
+  .move-option.offense { border-left: 5px solid var(--offense); }
+  .move-option.defense { border-left: 5px solid var(--defense); }
+  .move-option.goalie { border-left: 5px solid var(--goalie); }
+  .move-option.bench { border-left: 5px solid var(--bench); }
+
+  .player-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--bg-cream);
+    border-radius: 8px;
+    margin-bottom: 6px;
+  }
+
+  .stat-buttons { display: flex; gap: 6px; }
+
+  .stats-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+  .stats-table th, .stats-table td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .stats-table th { background: var(--pitch-green); color: white; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; }
+  .stats-table td.num { text-align: center; font-weight: 600; }
+
+  .stat-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--border); margin-top: 4px; min-width: 80px; }
+  .stat-bar-segment { height: 100%; }
+
+  .stats-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; font-size: 0.85rem; }
+  .legend-dot { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+  .table-wrap { overflow-x: auto; }
+
+  .view-toggle { display: flex; gap: 4px; background: var(--bg-cream); padding: 4px; border-radius: 8px; margin-bottom: 16px; }
+  .view-toggle button { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 6px; font-family: inherit; font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--muted); transition: all 0.2s; }
+  .view-toggle button.active { background: white; color: var(--pitch-green); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+  .game-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--pitch-green);
+  }
+
+  .game-card.active-game { border-left-color: var(--accent-orange); background: #fff8f3; }
+  .game-card.completed { border-left-color: var(--bench); }
+
+  .game-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .game-card-title { font-weight: 700; font-size: 1rem; }
+  .game-card-meta { color: var(--muted); font-size: 0.85rem; }
+  .game-card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+
+  .game-stat-pill {
+    display: inline-block;
+    background: var(--bg-cream);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin-right: 4px;
+    margin-top: 4px;
+  }
+
+  .result-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .result-pill.win { background: var(--defense); color: white; }
+  .result-pill.loss { background: var(--offense); color: white; }
+  .result-pill.tie { background: var(--accent-yellow); color: var(--ink); }
+
+  .resource-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .resource-tab {
+    padding: 8px 14px;
+    background: var(--bg-cream);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .resource-tab.active { background: var(--pitch-green); color: white; border-color: var(--pitch-green); }
+
+  .resource-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--accent-orange);
+  }
+
+  .resource-item h4 { font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 4px; color: var(--ink); }
+  .resource-item p { color: var(--muted); font-size: 0.9rem; }
+
+  /* FORMATION FIELD - smaller now */
+  .formation-controls { display: grid; gap: 10px; margin-bottom: 16px; }
+  .control-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .control-label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; width: 100%; }
+
+  .formation-toggle, .possession-toggle {
+    display: flex;
+    background: var(--bg-cream);
+    padding: 4px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .formation-toggle button, .possession-toggle button {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .formation-toggle button.active { background: var(--pitch-green); color: white; }
+  .possession-toggle button.offense-btn.active { background: var(--offense); color: white; }
+  .possession-toggle button.defense-btn.active { background: var(--defense); color: white; }
+
+  .field-container {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .soccer-field { width: 100%; height: auto; display: block; }
+  .field-bg { fill: var(--pitch-green); }
+  .field-line { stroke: white; stroke-width: 2; fill: none; }
+  .field-stripe { fill: var(--pitch-green-light); opacity: 0.3; }
+
+  .formation-player {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .player-circle { fill: var(--accent-yellow); stroke: var(--ink); stroke-width: 2; }
+  .player-circle.gk { fill: var(--goalie); }
+  .player-position-label { font-family: 'Inter', sans-serif; font-size: 11px; fill: var(--ink); text-anchor: middle; font-weight: 700; dominant-baseline: central; pointer-events: none; }
+
+  .formation-legend { margin-top: 14px; padding: 12px; background: var(--bg-cream); border-radius: 8px; font-size: 0.85rem; }
+  .formation-legend strong { color: var(--pitch-green-dark); }
+
+  /* PARENTS */
+  .parent-hero {
+    background: linear-gradient(135deg, var(--pitch-green) 0%, var(--pitch-green-dark) 100%);
+    color: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .parent-hero h2 { color: white; margin-bottom: 6px; }
+  .parent-hero p { opacity: 0.9; font-size: 0.95rem; }
+
+  .template-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+  .template-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+  .template-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; color: var(--pitch-green-dark); }
+
+  .template-body {
+    background: var(--bg-cream);
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    border-left: 3px solid var(--accent-orange);
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .parent-tip-grid { display: grid; gap: 10px; grid-template-columns: 1fr; margin-top: 12px; }
+  @media (min-width: 640px) { .parent-tip-grid { grid-template-columns: 1fr 1fr; } }
+
+  .parent-tip { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; border-left: 4px solid var(--accent-yellow); }
+  .parent-tip-icon { font-size: 1.4rem; margin-bottom: 4px; }
+  .parent-tip h4 { font-size: 0.95rem; margin-bottom: 4px; font-family: 'Inter', sans-serif; }
+  .parent-tip p { font-size: 0.85rem; color: var(--muted); }
+
+  /* ORANGES */
+  .orange-card {
+    background: linear-gradient(135deg, #ff8a4d 0%, var(--accent-orange) 100%);
+    color: white;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .orange-card h3 { color: white; font-size: 1.4rem; }
+  .orange-card .big-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; margin: 8px 0; }
+
+  .slice-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .slice-row.past { opacity: 0.6; background: var(--bg-cream); }
+  .slice-row.next { border-left: 4px solid var(--accent-orange); }
+
+  .slice-date { font-weight: 600; font-size: 0.9rem; }
+  .slice-assignee { color: var(--muted); font-size: 0.85rem; }
+
+  /* WHATSAPP */
+  .whatsapp-card {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .whatsapp-card h2 { color: white; }
+  .whatsapp-card p { opacity: 0.9; font-size: 0.95rem; }
+
+  .whatsapp-message {
+    background: #DCF8C6;
+    color: var(--ink);
+    padding: 14px 16px;
+    border-radius: 14px;
+    margin: 12px 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 100%;
+    word-wrap: break-word;
+    position: relative;
+    border-bottom-right-radius: 2px;
+  }
+
+  .whatsapp-bubble-container {
+    background: #ECE5DD;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 14px 0;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--ink);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    z-index: 300;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .danger-zone { margin-top: 24px; text-align: center; padding: 16px; }
+
+  .counter-btn {
+    background: var(--pitch-green);
+    color: white;
+    border: none;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: transform 0.1s;
+  }
+  .counter-btn:hover { transform: scale(1.1); }
+  .counter-btn.minus { background: var(--muted); }
+  .counter-display { display: inline-block; min-width: 28px; text-align: center; font-weight: 700; margin: 0 4px; }
+
+  .info-box {
+    background: #fff9e6;
+    border: 1px solid var(--accent-yellow);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  .info-box strong { color: var(--pitch-green-dark); }
+
+  @media (min-width: 768px) {
+    .clock-display { font-size: 4.5rem; }
+    .position-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <span class="club-tag">⚽ THPFC</span>
+    <h1>SOCCER COACH KIT</h1>
+    <p>Toronto High Park Football Club · Coach's command center</p>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button class="tab-btn active" data-tab="roster">Roster</button>
+    <button class="tab-btn" data-tab="games">Games</button>
+    <button class="tab-btn" data-tab="tracker">Tracker</button>
+    <button class="tab-btn" data-tab="stats">Stats</button>
+    <button class="tab-btn" data-tab="formation">Positions</button>
+    <button class="tab-btn" data-tab="comms">Weekly Msg</button>
+    <button class="tab-btn" data-tab="parents">Parents</button>
+    <button class="tab-btn" data-tab="oranges">Oranges</button>
+    <button class="tab-btn" data-tab="resources">Resources</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ROSTER -->
+  <section class="panel active" id="roster">
+    <div class="card">
+      <h2>Add Player</h2>
+      <div class="field-group">
+        <label class="field-label">Player Name</label>
+        <input type="text" id="playerName" placeholder="e.g. Sam Smith" maxlength="40">
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="field-label">Jersey #</label>
+          <input type="number" id="playerNumber" placeholder="#" min="0" max="999">
+        </div>
+        <div>
+          <label class="field-label">Age</label>
+          <select id="playerAge">
+            <option value="">Select...</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top: 12px;">
+        <button class="btn btn-primary btn-full" onclick="addPlayer()">Add Player</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Team Roster (<span id="rosterCount">0</span>)</h2>
+      <div id="ageInfo" style="font-size: 0.85rem; color: var(--muted); margin-bottom: 8px;"></div>
+      <div class="roster-list" id="rosterList"></div>
+    </div>
+  </section>
+
+  <!-- GAMES -->
+  <section class="panel" id="games">
+    <div class="card">
+      <h2>Season Schedule</h2>
+      <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 12px;">
+        Set your game day and we'll auto-generate the schedule starting the week of May 18, 2026.
+      </p>
+
+      <div class="form-row">
+        <div>
+          <label class="field-label">Game Day</label>
+          <select id="gameDayOfWeek">
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4" selected>Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+            <option value="0">Sunday</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label"># of Games</label>
+          <input type="number" id="numGames" value="12" min="1" max="30">
+        </div>
+      </div>
+      <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="generateSchedule()">⚡ Generate Schedule</button>
+        <button class="btn btn-secondary" onclick="clearSchedule()">Clear All</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Add One-Off Game</h2>
+      <div class="form-row">
+        <div>
+          <label class="field-label">Date</label>
+          <input type="date" id="gameDate">
+        </div>
+        <div>
+          <label class="field-label">Opponent</label>
+          <input type="text" id="gameOpponent" placeholder="Etobicoke FC" maxlength="40">
+        </div>
+      </div>
+      <div style="margin-top: 12px;">
+        <button class="btn btn-secondary btn-full" onclick="addGame()">Add Game</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Games (<span id="gamesCount">0</span>)</h2>
+      <div id="gamesList"></div>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section class="panel" id="tracker">
+    <div id="activeGameBanner"></div>
+
+    <div class="card">
+      <div class="clock-display" id="clockDisplay">00:00</div>
+      <div class="clock-controls">
+        <button class="btn btn-primary" id="startStopBtn" onclick="toggleClock()">Start Clock</button>
+        <button class="btn btn-secondary" onclick="resetClock()">Reset Clock</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--muted); text-align: center;">
+        Tap a player to move them, log a goal, or log an assist.
+      </p>
+    </div>
+
+    <div class="position-grid">
+      <div class="position-zone bench">
+        <div class="zone-header">
+          <div class="zone-title">🪑 Bench</div>
+          <span class="zone-count" id="count-bench">0</span>
+        </div>
+        <div class="zone-players" id="zone-bench"></div>
+      </div>
+      <div class="position-zone offense">
+        <div class="zone-header">
+          <div class="zone-title">⚡ Offense</div>
+          <span class="zone-count" id="count-offense">0</span>
+        </div>
+        <div class="zone-players" id="zone-offense"></div>
+      </div>
+      <div class="position-zone defense">
+        <div class="zone-header">
+          <div class="zone-title">🛡️ Defense</div>
+          <span class="zone-count" id="count-defense">0</span>
+        </div>
+        <div class="zone-players" id="zone-defense"></div>
+      </div>
+      <div class="position-zone goalie">
+        <div class="zone-header">
+          <div class="zone-title">🥅 Goalie</div>
+          <span class="zone-count" id="count-goalie">0</span>
+        </div>
+        <div class="zone-players" id="zone-goalie"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="panel" id="stats">
+    <div class="card">
+      <h2>Player Stats</h2>
+      <div class="view-toggle">
+        <button id="viewSeason" class="active" onclick="setStatsView('season')">Season Totals</button>
+        <button id="viewGame" onclick="setStatsView('game')">Selected Game</button>
+      </div>
+      <div id="statsViewExtra" style="margin-bottom: 12px;"></div>
+      <div class="stats-legend">
+        <span><span class="legend-dot" style="background: var(--offense);"></span>Offense</span>
+        <span><span class="legend-dot" style="background: var(--defense);"></span>Defense</span>
+        <span><span class="legend-dot" style="background: var(--goalie);"></span>Goalie</span>
+      </div>
+      <div class="table-wrap">
+        <table class="stats-table" id="statsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>GP</th>
+              <th>G</th>
+              <th>A</th>
+              <th>Time</th>
+              <th>OFF</th>
+              <th>DEF</th>
+              <th>GK</th>
+              <th>Split</th>
+            </tr>
+          </thead>
+          <tbody id="statsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="danger-zone">
+      <button class="btn btn-secondary" onclick="resetStats()">Reset Live Tracker</button>
+    </div>
+  </section>
+
+  <!-- FORMATION -->
+  <section class="panel" id="formation">
+    <div class="card">
+      <h2>Player Positions (5v5)</h2>
+      <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 14px;">
+        4 outfield players plus a goalie. Toggle possession to show kids how they shift forward and back.
+      </p>
+
+      <div class="formation-controls">
+        <div class="control-row">
+          <span class="control-label">Formation</span>
+          <div class="formation-toggle">
+            <button id="form-2-2" class="active" onclick="setFormation('2-2')">2-2</button>
+            <button id="form-3-1" onclick="setFormation('3-1')">3-1</button>
+          </div>
+        </div>
+        <div class="control-row">
+          <span class="control-label">Possession</span>
+          <div class="possession-toggle">
+            <button id="poss-offense" class="offense-btn active" onclick="setPossession('offense')">⚡ We Have Ball</button>
+            <button id="poss-defense" class="defense-btn" onclick="setPossession('defense')">🛡️ They Have Ball</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-container">
+        <svg class="soccer-field" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+          <rect class="field-bg" width="400" height="600"/>
+          <rect class="field-stripe" x="0" y="0" width="400" height="60"/>
+          <rect class="field-stripe" x="0" y="120" width="400" height="60"/>
+          <rect class="field-stripe" x="0" y="240" width="400" height="60"/>
+          <rect class="field-stripe" x="0" y="360" width="400" height="60"/>
+          <rect class="field-stripe" x="0" y="480" width="400" height="60"/>
+          <rect class="field-line" x="10" y="10" width="380" height="580"/>
+          <line class="field-line" x1="10" y1="300" x2="390" y2="300"/>
+          <circle class="field-line" cx="200" cy="300" r="50"/>
+          <circle cx="200" cy="300" r="3" fill="white"/>
+          <rect class="field-line" x="130" y="10" width="140" height="50"/>
+          <rect class="field-line" x="160" y="10" width="80" height="20"/>
+          <rect class="field-line" x="130" y="540" width="140" height="50"/>
+          <rect class="field-line" x="160" y="570" width="80" height="20"/>
+          <text x="200" y="35" text-anchor="middle" fill="white" font-size="14" opacity="0.8" font-family="Inter, sans-serif" font-weight="600">⬆ ATTACK</text>
+          <text x="200" y="565" text-anchor="middle" fill="white" font-size="14" opacity="0.8" font-family="Inter, sans-serif" font-weight="600">OUR GOAL</text>
+          <g id="formationPlayers"></g>
+        </svg>
+      </div>
+
+      <div class="formation-legend">
+        <strong id="formationName">2-2 Formation</strong><br>
+        <span id="formationDesc">2 defenders and 2 forwards. Balanced setup - everyone has a clear job.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEEKLY COMMS -->
+  <section class="panel" id="comms">
+    <div class="whatsapp-card">
+      <h2>📱 Weekly Team Message</h2>
+      <p>Auto-generated WhatsApp message based on last week's result, your record, and player ages. Tap to copy.</p>
+    </div>
+
+    <div class="card">
+      <h2>This Week's Message</h2>
+      <div id="commsInfo" class="info-box"></div>
+
+      <div class="whatsapp-bubble-container">
+        <div class="whatsapp-message" id="whatsappMessage">Set up your roster and schedule to generate a message.</div>
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="copyWhatsAppMessage()">📋 Copy to Clipboard</button>
+        <button class="btn btn-secondary" onclick="regenerateWhatsAppMessage()">🎲 Regenerate</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Custom Tone Override</h2>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 10px;">
+        By default, tone matches the average age of your roster. Override here if needed.
+      </p>
+      <select id="commsToneOverride" onchange="regenerateWhatsAppMessage()">
+        <option value="auto">Auto (based on roster age)</option>
+        <option value="silly">Silly (4-7 years)</option>
+        <option value="fun">Fun + Competitive (8-11 years)</option>
+        <option value="serious">Serious + Motivational (12-15 years)</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- PARENTS -->
+  <section class="panel" id="parents">
+    <div class="parent-hero">
+      <h2>THPFC Parent Hub</h2>
+      <p>Building all-stars on and off the field. Communication tools to help parents partner with you.</p>
+    </div>
+
+    <div class="card">
+      <h2>Email Templates</h2>
+      <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 12px;">
+        Tap "Copy" on any template. Edit before sending to fit your team.
+      </p>
+      <div id="templatesList"></div>
+    </div>
+
+    <div class="card">
+      <h2>Parent Tips</h2>
+      <p style="font-size: 0.9rem; color: var(--muted);">Quick reminders to share with parents on what helps kids develop.</p>
+      <div class="parent-tip-grid" id="parentTipsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ORANGES -->
+  <section class="panel" id="oranges">
+    <div class="orange-card">
+      <h3>🍊 Up Next for Orange Slices</h3>
+      <div class="big-name" id="nextOrangeName">Not assigned yet</div>
+      <div id="nextOrangeDate" style="font-size: 0.95rem; opacity: 0.95;"></div>
+    </div>
+
+    <div class="card">
+      <h2>Assign Orange Slices</h2>
+      <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 12px;">
+        Pick a player from the dropdown - their family brings the slices that week.
+      </p>
+      <div id="orangeAssignmentList"></div>
+      <div style="text-align: center; margin-top: 14px;">
+        <button class="btn btn-accent" onclick="autoAssignOranges()">🎲 Auto-Assign Remaining Games</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="panel" id="resources">
+    <div class="card">
+      <h2>Coaching Resources</h2>
+      <div class="resource-tabs">
+        <button class="resource-tab active" data-resource="team">Team Building</button>
+        <button class="resource-tab" data-resource="icebreakers">Ice Breakers</button>
+        <button class="resource-tab" data-resource="games">Games & Drills</button>
+      </div>
+      <div id="resourceContent"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Player Modal -->
+<div class="modal-overlay" id="playerModal">
+  <div class="modal">
+    <h3 id="playerModalTitle">Player Actions</h3>
+
+    <h4 style="font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 14px 0 6px;">Move To Position</h4>
+    <div class="move-options">
+      <button class="move-option offense" onclick="movePlayer('offense')">⚡ Offense</button>
+      <button class="move-option defense" onclick="movePlayer('defense')">🛡️ Defense</button>
+      <button class="move-option goalie" onclick="movePlayer('goalie')">🥅 Goalie</button>
+      <button class="move-option bench" onclick="movePlayer('bench')">🪑 Bench</button>
+    </div>
+
+    <h4 style="font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 18px 0 6px;">This Game</h4>
+    <div class="player-action-row">
+      <span><strong>⚽ Goals:</strong> <span class="counter-display" id="modalGoals">0</span></span>
+      <div class="stat-buttons">
+        <button class="counter-btn minus" onclick="adjustStat('goals', -1)">−</button>
+        <button class="counter-btn" onclick="adjustStat('goals', 1)">+</button>
+      </div>
+    </div>
+    <div class="player-action-row">
+      <span><strong>🎯 Assists:</strong> <span class="counter-display" id="modalAssists">0</span></span>
+      <div class="stat-buttons">
+        <button class="counter-btn minus" onclick="adjustStat('assists', -1)">−</button>
+        <button class="counter-btn" onclick="adjustStat('assists', 1)">+</button>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary btn-full" style="margin-top: 16px;" onclick="closeModal()">Done</button>
+  </div>
+</div>
+
+<!-- Game Result Modal -->
+<div class="modal-overlay" id="resultModal">
+  <div class="modal">
+    <h3 id="resultModalTitle">Log Result</h3>
+
+    <div class="field-group">
+      <label class="field-label">Result</label>
+      <select id="resultType">
+        <option value="">Not played yet</option>
+        <option value="win">Win</option>
+        <option value="loss">Loss</option>
+        <option value="tie">Tie</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label class="field-label">Our Score</label>
+        <input type="number" id="ourScore" min="0" max="50">
+      </div>
+      <div>
+        <label class="field-label">Their Score</label>
+        <input type="number" id="theirScore" min="0" max="50">
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 8px; margin-top: 16px;">
+      <button class="btn btn-primary" style="flex: 1;" onclick="saveGameResult()">Save</button>
+      <button class="btn btn-secondary" style="flex: 1;" onclick="closeResultModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ========= STATE ========= */
+let state = {
+  players: [],
+  games: [],
+  activeGameId: null,
+  clockRunning: false,
+  clockSeconds: 0,
+  lastTickTime: null,
+  selectedPlayerId: null,
+  formation: '2-2',
+  possession: 'offense',
+  orangeAssignments: {},
+  toneOverride: 'auto',
+  resultEditingGameId: null
+};
+
+let statsView = 'season';
+let statsSelectedGameId = null;
+
+const STORAGE_KEY = 'thpfc-coach-kit-v3';
+
+function saveState() {
+  const toSave = { ...state, lastTickTime: null };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+}
+
+function loadState() {
+  // Try v3 first, fall back to v2
+  let saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) saved = localStorage.getItem('thpfc-soccer-toolkit-v2');
+
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      state = { ...state, ...parsed, clockRunning: false, lastTickTime: null };
+      state.games.forEach(g => {
+        if (!g.stats) g.stats = {};
+        if (!g.result) g.result = '';
+        if (g.ourScore == null) g.ourScore = '';
+        if (g.theirScore == null) g.theirScore = '';
+      });
+      if (!state.orangeAssignments) state.orangeAssignments = {};
+      if (state.formation === '2-2-1') state.formation = '2-2';
+      if (state.formation === '3-1-2') state.formation = '3-1';
+      if (!['2-2', '3-1'].includes(state.formation)) state.formation = '2-2';
+      if (!state.toneOverride) state.toneOverride = 'auto';
+      // Players need age field
+      state.players.forEach(p => { if (p.age === undefined) p.age = ''; });
+    } catch(e) { console.warn('Could not load saved state', e); }
+  }
+}
+
+/* ========= TABS ========= */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'stats') renderStats();
+    if (btn.dataset.tab === 'tracker') renderActiveGameBanner();
+    if (btn.dataset.tab === 'oranges') renderOranges();
+    if (btn.dataset.tab === 'formation') renderFormation();
+    if (btn.dataset.tab === 'comms') regenerateWhatsAppMessage();
+    window.scrollTo(0, 0);
+  });
+});
+
+/* ========= ROSTER ========= */
+function addPlayer() {
+  const nameInput = document.getElementById('playerName');
+  const numInput = document.getElementById('playerNumber');
+  const ageInput = document.getElementById('playerAge');
+  const name = nameInput.value.trim();
+  const number = numInput.value.trim();
+  const age = ageInput.value;
+
+  if (!name) { showToast('Please enter a player name'); return; }
+  if (!number) { showToast('Please enter a jersey number'); return; }
+  if (!age) { showToast('Please select an age'); return; }
+
+  if (state.players.some(p => p.number === number)) {
+    showToast('That jersey number is already taken');
+    return;
+  }
+
+  state.players.push({
+    id: Date.now() + Math.random(),
+    name: name,
+    number: number,
+    age: age,
+    position: 'bench',
+    minutes: { offense: 0, defense: 0, goalie: 0 }
+  });
+
+  nameInput.value = '';
+  numInput.value = '';
+  ageInput.value = '';
+  saveState();
+  renderRoster();
+  renderTracker();
+  renderOranges();
+  showToast(`${name} added`);
+}
+
+function removePlayer(id) {
+  const player = state.players.find(p => p.id === id);
+  if (!player) return;
+  if (!confirm(`Remove ${player.name}? Their stats will be erased from all games.`)) return;
+  state.players = state.players.filter(p => p.id !== id);
+  state.games.forEach(g => { if (g.stats[id]) delete g.stats[id]; });
+  // Also remove from any orange slice assignments where they were the player
+  Object.keys(state.orangeAssignments).forEach(gameId => {
+    if (state.orangeAssignments[gameId] === id.toString()) {
+      delete state.orangeAssignments[gameId];
+    }
+  });
+  saveState();
+  renderRoster();
+  renderTracker();
+  renderOranges();
+}
+
+function getAverageAge() {
+  const ages = state.players.map(p => parseInt(p.age)).filter(a => a >= 4 && a <= 15);
+  if (ages.length === 0) return null;
+  return ages.reduce((a,b) => a+b, 0) / ages.length;
+}
+
+function renderRoster() {
+  const list = document.getElementById('rosterList');
+  document.getElementById('rosterCount').textContent = state.players.length;
+
+  const avg = getAverageAge();
+  const ageInfo = document.getElementById('ageInfo');
+  if (avg !== null) {
+    let band = avg < 8 ? 'Silly tone (4-7)' : avg < 12 ? 'Fun + competitive tone (8-11)' : 'Serious + motivational tone (12-15)';
+    ageInfo.innerHTML = `Average roster age: <strong>${avg.toFixed(1)}</strong> · ${band}`;
+  } else {
+    ageInfo.innerHTML = '';
+  }
+
+  if (state.players.length === 0) {
+    list.innerHTML = '<div class="empty-state">No players yet. Add your first player above.</div>';
+    return;
+  }
+
+  const sorted = [...state.players].sort((a,b) => parseInt(a.number) - parseInt(b.number));
+  list.innerHTML = sorted.map(p => `
+    <div class="player-row">
+      <div class="jersey-num">${escapeHtml(p.number)}</div>
+      <div class="player-name">${escapeHtml(p.name)}</div>
+      <span class="player-age">Age ${escapeHtml(p.age || '?')}</span>
+      <button class="btn btn-danger" onclick="removePlayer(${p.id})">Remove</button>
+    </div>
+  `).join('');
+}
+
+/* ========= GAMES & SCHEDULE ========= */
+function generateSchedule() {
+  if (state.games.length > 0) {
+    if (!confirm(`This will replace your existing ${state.games.length} game(s). Continue?`)) return;
+    state.games = [];
+    state.orangeAssignments = {};
+    state.activeGameId = null;
+  }
+
+  const dayOfWeek = parseInt(document.getElementById('gameDayOfWeek').value);
+  const numGames = parseInt(document.getElementById('numGames').value) || 12;
+
+  // Season starts week of May 18, 2026 (Monday)
+  // Find first occurrence of selected day on or after May 18, 2026
+  let firstGame = new Date(2026, 4, 18); // May 18, 2026
+  while (firstGame.getDay() !== dayOfWeek) {
+    firstGame.setDate(firstGame.getDate() + 1);
+  }
+
+  for (let i = 0; i < numGames; i++) {
+    const gameDate = new Date(firstGame);
+    gameDate.setDate(firstGame.getDate() + (i * 7));
+    const dateStr = gameDate.toISOString().split('T')[0];
+
+    state.games.push({
+      id: Date.now() + Math.random() + i,
+      date: dateStr,
+      opponent: `Game ${i + 1}`,
+      stats: {},
+      result: '',
+      ourScore: '',
+      theirScore: ''
+    });
+  }
+
+  saveState();
+  renderGames();
+  renderOranges();
+  showToast(`${numGames} games scheduled!`);
+}
+
+function clearSchedule() {
+  if (state.games.length === 0) return;
+  if (!confirm('Delete ALL games and orange slice assignments? This cannot be undone.')) return;
+  state.games = [];
+  state.orangeAssignments = {};
+  state.activeGameId = null;
+  saveState();
+  renderGames();
+  renderOranges();
+  renderActiveGameBanner();
+  showToast('Schedule cleared');
+}
+
+function addGame() {
+  const dateInput = document.getElementById('gameDate');
+  const opponentInput = document.getElementById('gameOpponent');
+  const date = dateInput.value;
+  const opponent = opponentInput.value.trim();
+
+  if (!date) { showToast('Please pick a date'); return; }
+  if (!opponent) { showToast('Please enter an opponent'); return; }
+
+  state.games.push({
+    id: Date.now() + Math.random(),
+    date: date,
+    opponent: opponent,
+    stats: {},
+    result: '',
+    ourScore: '',
+    theirScore: ''
+  });
+
+  dateInput.value = '';
+  opponentInput.value = '';
+  saveState();
+  renderGames();
+  renderOranges();
+  showToast(`Game vs ${opponent} added`);
+}
+
+function setActiveGame(id) {
+  flushCurrentGameMinutes();
+  state.activeGameId = id;
+  state.players.forEach(p => {
+    p.minutes = { offense: 0, defense: 0, goalie: 0 };
+    p.position = 'bench';
+  });
+  state.clockSeconds = 0;
+  state.clockRunning = false;
+  state.lastTickTime = null;
+
+  const game = state.games.find(g => g.id === id);
+  if (game) {
+    state.players.forEach(p => {
+      const s = game.stats[p.id];
+      if (s && s.secondsByPosition) {
+        p.minutes = {
+          offense: s.secondsByPosition.offense || 0,
+          defense: s.secondsByPosition.defense || 0,
+          goalie: s.secondsByPosition.goalie || 0
+        };
+      }
+    });
+  }
+
+  saveState();
+  renderGames();
+  renderActiveGameBanner();
+  renderTracker();
+  updateClockDisplay();
+  document.getElementById('startStopBtn').textContent = 'Start Clock';
+  document.getElementById('startStopBtn').classList.remove('btn-accent');
+  document.getElementById('startStopBtn').classList.add('btn-primary');
+  showToast('Active game set');
+}
+
+function deleteGame(id) {
+  const game = state.games.find(g => g.id === id);
+  if (!game) return;
+  if (!confirm(`Delete game vs ${game.opponent} on ${game.date}?`)) return;
+  state.games = state.games.filter(g => g.id !== id);
+  if (state.activeGameId === id) state.activeGameId = null;
+  delete state.orangeAssignments[id];
+  saveState();
+  renderGames();
+  renderActiveGameBanner();
+  renderTracker();
+  renderOranges();
+}
+
+function flushCurrentGameMinutes() {
+  if (!state.activeGameId) return;
+  const game = state.games.find(g => g.id === state.activeGameId);
+  if (!game) return;
+  state.players.forEach(p => {
+    if (!game.stats[p.id]) game.stats[p.id] = { goals: 0, assists: 0, secondsByPosition: { offense: 0, defense: 0, goalie: 0 } };
+    game.stats[p.id].secondsByPosition = {
+      offense: p.minutes.offense || 0,
+      defense: p.minutes.defense || 0,
+      goalie: p.minutes.goalie || 0
+    };
+  });
+}
+
+function editGameOpponent(id) {
+  const game = state.games.find(g => g.id === id);
+  if (!game) return;
+  const newName = prompt('Opponent name:', game.opponent);
+  if (newName && newName.trim()) {
+    game.opponent = newName.trim();
+    saveState();
+    renderGames();
+    renderOranges();
+  }
+}
+
+function openResultModal(id) {
+  const game = state.games.find(g => g.id === id);
+  if (!game) return;
+  state.resultEditingGameId = id;
+  document.getElementById('resultModalTitle').textContent = `Result vs ${game.opponent}`;
+  document.getElementById('resultType').value = game.result || '';
+  document.getElementById('ourScore').value = game.ourScore !== '' ? game.ourScore : '';
+  document.getElementById('theirScore').value = game.theirScore !== '' ? game.theirScore : '';
+  document.getElementById('resultModal').classList.add('active');
+}
+
+function closeResultModal() {
+  state.resultEditingGameId = null;
+  document.getElementById('resultModal').classList.remove('active');
+}
+
+function saveGameResult() {
+  const game = state.games.find(g => g.id === state.resultEditingGameId);
+  if (!game) return;
+  game.result = document.getElementById('resultType').value;
+  game.ourScore = document.getElementById('ourScore').value;
+  game.theirScore = document.getElementById('theirScore').value;
+  saveState();
+  closeResultModal();
+  renderGames();
+  showToast('Result saved');
+}
+
+function renderGames() {
+  const list = document.getElementById('gamesList');
+  document.getElementById('gamesCount').textContent = state.games.length;
+
+  if (state.games.length === 0) {
+    list.innerHTML = '<div class="empty-state">No games scheduled. Generate a schedule above or add a one-off.</div>';
+    return;
+  }
+
+  const sorted = [...state.games].sort((a,b) => a.date.localeCompare(b.date));
+
+  list.innerHTML = sorted.map(g => {
+    const isActive = g.id === state.activeGameId;
+    const isCompleted = !!g.result;
+    const stats = g.stats || {};
+    let totalGoals = 0, totalAssists = 0;
+    Object.values(stats).forEach(s => {
+      totalGoals += s.goals || 0;
+      totalAssists += s.assists || 0;
+    });
+
+    let resultPill = '';
+    if (g.result) {
+      const scoreText = (g.ourScore !== '' && g.theirScore !== '') ? ` ${g.ourScore}-${g.theirScore}` : '';
+      resultPill = `<span class="result-pill ${g.result}">${g.result.toUpperCase()}${scoreText}</span>`;
+    }
+
+    return `
+      <div class="game-card ${isActive ? 'active-game' : ''} ${isCompleted && !isActive ? 'completed' : ''}">
+        <div class="game-card-header">
+          <div>
+            <div class="game-card-title">vs ${escapeHtml(g.opponent)} ${isActive ? '<span style="background: var(--accent-orange); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 6px;">ACTIVE</span>' : ''}</div>
+            <div class="game-card-meta">${formatDate(g.date)}</div>
+          </div>
+          <div>${resultPill}</div>
+        </div>
+        <div>
+          <span class="game-stat-pill">⚽ ${totalGoals} goals</span>
+          <span class="game-stat-pill">🎯 ${totalAssists} assists</span>
+        </div>
+        <div class="game-card-actions">
+          ${!isActive ? `<button class="btn btn-primary btn-small" onclick="setActiveGame(${g.id})">Set Active</button>` : ''}
+          <button class="btn btn-secondary btn-small" onclick="openResultModal(${g.id})">${g.result ? 'Edit Result' : 'Log Result'}</button>
+          <button class="btn btn-secondary btn-small" onclick="editGameOpponent(${g.id})">Rename</button>
+          <button class="btn btn-secondary btn-small" onclick="viewGameStats(${g.id})">Stats</button>
+          <button class="btn btn-danger btn-small" onclick="deleteGame(${g.id})">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function viewGameStats(id) {
+  statsSelectedGameId = id;
+  statsView = 'game';
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('[data-tab="stats"]').classList.add('active');
+  document.getElementById('stats').classList.add('active');
+  renderStats();
+  window.scrollTo(0, 0);
+}
+
+function renderActiveGameBanner() {
+  const banner = document.getElementById('activeGameBanner');
+  if (!state.activeGameId) {
+    banner.innerHTML = `
+      <div class="active-game-banner no-game">
+        <span>⚠️ No active game selected. <a href="#" onclick="event.preventDefault(); document.querySelector('[data-tab=games]').click();" style="color: var(--pitch-green); font-weight: 600;">Pick a game →</a></span>
+      </div>
+    `;
+    return;
+  }
+  const game = state.games.find(g => g.id === state.activeGameId);
+  if (!game) return;
+  banner.innerHTML = `
+    <div class="active-game-banner">
+      <div>
+        <strong>vs ${escapeHtml(game.opponent)}</strong>
+        <div style="font-size: 0.85rem; opacity: 0.9;">${formatDate(game.date)}</div>
+      </div>
+      <span style="font-size: 0.8rem; opacity: 0.85;">Tracking live</span>
+    </div>
+  `;
+}
+
+/* ========= CLOCK ========= */
+function toggleClock() {
+  if (!state.activeGameId) {
+    showToast('Set an active game first');
+    return;
+  }
+  state.clockRunning = !state.clockRunning;
+  const btn = document.getElementById('startStopBtn');
+  if (state.clockRunning) {
+    state.lastTickTime = Date.now();
+    btn.textContent = 'Pause Clock';
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-accent');
+  } else {
+    btn.textContent = 'Start Clock';
+    btn.classList.remove('btn-accent');
+    btn.classList.add('btn-primary');
+    flushCurrentGameMinutes();
+    saveState();
+  }
+}
+
+function resetClock() {
+  if (!confirm('Reset the game clock to 00:00? Stats unaffected.')) return;
+  state.clockRunning = false;
+  state.clockSeconds = 0;
+  state.lastTickTime = null;
+  const btn = document.getElementById('startStopBtn');
+  btn.textContent = 'Start Clock';
+  btn.classList.remove('btn-accent');
+  btn.classList.add('btn-primary');
+  updateClockDisplay();
+  saveState();
+}
+
+function tick() {
+  if (state.clockRunning && state.lastTickTime && state.activeGameId) {
+    const now = Date.now();
+    const delta = (now - state.lastTickTime) / 1000;
+    state.lastTickTime = now;
+    state.clockSeconds += delta;
+
+    state.players.forEach(p => {
+      if (p.position !== 'bench') {
+        p.minutes[p.position] = (p.minutes[p.position] || 0) + delta;
+      }
+    });
+
+    updateClockDisplay();
+    if (Math.floor(state.clockSeconds) % 10 === 0) {
+      flushCurrentGameMinutes();
+      saveState();
+    }
+  }
+}
+
+function updateClockDisplay() {
+  const total = Math.floor(state.clockSeconds);
+  const m = String(Math.floor(total / 60)).padStart(2, '0');
+  const s = String(total % 60).padStart(2, '0');
+  document.getElementById('clockDisplay').textContent = `${m}:${s}`;
+}
+
+setInterval(tick, 1000);
+
+/* ========= TRACKER ZONES ========= */
+function renderTracker() {
+  ['bench', 'offense', 'defense', 'goalie'].forEach(zone => {
+    const players = state.players.filter(p => p.position === zone);
+    document.getElementById(`count-${zone}`).textContent = players.length;
+    const zoneEl = document.getElementById(`zone-${zone}`);
+
+    if (players.length === 0) {
+      zoneEl.innerHTML = '<span style="color: var(--muted); font-size: 0.8rem; font-style: italic;">No players</span>';
+      return;
+    }
+
+    const sorted = [...players].sort((a,b) => parseInt(a.number) - parseInt(b.number));
+    zoneEl.innerHTML = sorted.map(p => `
+      <div class="player-chip" onclick="openPlayerModal(${p.id})">
+        <span class="num">${escapeHtml(p.number)}</span>
+        <span>${escapeHtml(p.name)}</span>
+      </div>
+    `).join('');
+  });
+}
+
+function openPlayerModal(id) {
+  state.selectedPlayerId = id;
+  const player = state.players.find(p => p.id === id);
+  if (!player) return;
+  document.getElementById('playerModalTitle').textContent = `${player.name} (#${player.number})`;
+  updateModalCounters();
+  document.getElementById('playerModal').classList.add('active');
+}
+
+function updateModalCounters() {
+  const game = state.games.find(g => g.id === state.activeGameId);
+  if (!game) {
+    document.getElementById('modalGoals').textContent = '—';
+    document.getElementById('modalAssists').textContent = '—';
+    return;
+  }
+  const s = game.stats[state.selectedPlayerId];
+  document.getElementById('modalGoals').textContent = s ? (s.goals || 0) : 0;
+  document.getElementById('modalAssists').textContent = s ? (s.assists || 0) : 0;
+}
+
+function closeModal() {
+  state.selectedPlayerId = null;
+  document.getElementById('playerModal').classList.remove('active');
+}
+
+function movePlayer(newPosition) {
+  const player = state.players.find(p => p.id === state.selectedPlayerId);
+  if (!player) return;
+  const oldPosition = player.position;
+  player.position = newPosition;
+  saveState();
+  renderTracker();
+  if (oldPosition !== newPosition) {
+    showToast(`${player.name} → ${newPosition.toUpperCase()}`);
+  }
+}
+
+function adjustStat(stat, delta) {
+  if (!state.activeGameId) {
+    showToast('Set an active game first');
+    return;
+  }
+  const game = state.games.find(g => g.id === state.activeGameId);
+  if (!game) return;
+  const pid = state.selectedPlayerId;
+  if (!game.stats[pid]) {
+    game.stats[pid] = { goals: 0, assists: 0, secondsByPosition: { offense: 0, defense: 0, goalie: 0 } };
+  }
+  game.stats[pid][stat] = Math.max(0, (game.stats[pid][stat] || 0) + delta);
+  updateModalCounters();
+  saveState();
+
+  const player = state.players.find(p => p.id === pid);
+  if (player && delta > 0) {
+    if (stat === 'goals') showToast(`⚽ Goal! ${player.name}`);
+    if (stat === 'assists') showToast(`🎯 Assist! ${player.name}`);
+  }
+}
+
+/* ========= STATS ========= */
+function setStatsView(view) {
+  statsView = view;
+  document.getElementById('viewSeason').classList.toggle('active', view === 'season');
+  document.getElementById('viewGame').classList.toggle('active', view === 'game');
+  renderStats();
+}
+
+function renderStats() {
+  const body = document.getElementById('statsBody');
+  const extra = document.getElementById('statsViewExtra');
+
+  if (statsView === 'game') {
+    if (state.games.length === 0) {
+      extra.innerHTML = '<div class="empty-state">No games yet.</div>';
+      body.innerHTML = '';
+      return;
+    }
+    if (!statsSelectedGameId || !state.games.find(g => g.id === statsSelectedGameId)) {
+      statsSelectedGameId = state.activeGameId || state.games[0].id;
+    }
+    const sorted = [...state.games].sort((a,b) => b.date.localeCompare(a.date));
+    extra.innerHTML = `
+      <label class="field-label">Game:</label>
+      <select onchange="statsSelectedGameId = parseFloat(this.value); renderStats();">
+        ${sorted.map(g => `<option value="${g.id}" ${g.id === statsSelectedGameId ? 'selected' : ''}>vs ${escapeHtml(g.opponent)} - ${formatDate(g.date)}</option>`).join('')}
+      </select>
+    `;
+  } else {
+    extra.innerHTML = '';
+  }
+
+  if (state.players.length === 0) {
+    body.innerHTML = '<tr><td colspan="10" style="text-align:center; color: var(--muted); font-style: italic; padding: 24px;">No players yet</td></tr>';
+    return;
+  }
+
+  const playerStats = state.players.map(p => {
+    let goals = 0, assists = 0, off = 0, def = 0, gk = 0, gp = 0;
+
+    if (statsView === 'season') {
+      state.games.forEach(g => {
+        const s = g.stats[p.id];
+        if (s) {
+          let played = false;
+          if (s.goals) { goals += s.goals; played = true; }
+          if (s.assists) { assists += s.assists; played = true; }
+          if (s.secondsByPosition) {
+            const o = s.secondsByPosition.offense || 0;
+            const d = s.secondsByPosition.defense || 0;
+            const gKp = s.secondsByPosition.goalie || 0;
+            off += o; def += d; gk += gKp;
+            if (o + d + gKp > 0) played = true;
+          }
+          if (played) gp++;
+        }
+      });
+      if (state.activeGameId) {
+        const game = state.games.find(g => g.id === state.activeGameId);
+        if (game) {
+          const saved = game.stats[p.id];
+          const savedSec = saved && saved.secondsByPosition ? saved.secondsByPosition : { offense: 0, defense: 0, goalie: 0 };
+          off = off - (savedSec.offense || 0) + (p.minutes.offense || 0);
+          def = def - (savedSec.defense || 0) + (p.minutes.defense || 0);
+          gk = gk - (savedSec.goalie || 0) + (p.minutes.goalie || 0);
+        }
+      }
+    } else {
+      const game = state.games.find(g => g.id === statsSelectedGameId);
+      if (game) {
+        const s = game.stats[p.id];
+        if (s) {
+          goals = s.goals || 0;
+          assists = s.assists || 0;
+          if (s.secondsByPosition) {
+            off = s.secondsByPosition.offense || 0;
+            def = s.secondsByPosition.defense || 0;
+            gk = s.secondsByPosition.goalie || 0;
+          }
+        }
+        if (game.id === state.activeGameId) {
+          off = p.minutes.offense || 0;
+          def = p.minutes.defense || 0;
+          gk = p.minutes.goalie || 0;
+        }
+        gp = (goals + assists + off + def + gk) > 0 ? 1 : 0;
+      }
+    }
+
+    return { p, goals, assists, off, def, gk, gp, total: off + def + gk };
+  });
+
+  playerStats.sort((a,b) => b.total - a.total || b.goals - a.goals);
+
+  body.innerHTML = playerStats.map(({p, goals, assists, off, def, gk, gp, total}) => {
+    let bar = '<div class="stat-bar">';
+    if (total > 0) {
+      bar += `<div class="stat-bar-segment" style="width:${(off/total)*100}%; background: var(--offense);"></div>`;
+      bar += `<div class="stat-bar-segment" style="width:${(def/total)*100}%; background: var(--defense);"></div>`;
+      bar += `<div class="stat-bar-segment" style="width:${(gk/total)*100}%; background: var(--goalie);"></div>`;
+    }
+    bar += '</div>';
+
+    return `
+      <tr>
+        <td><strong>${escapeHtml(p.number)}</strong></td>
+        <td>${escapeHtml(p.name)}</td>
+        <td class="num">${statsView === 'season' ? gp : (gp ? 1 : 0)}</td>
+        <td class="num">${goals}</td>
+        <td class="num">${assists}</td>
+        <td class="num"><strong>${formatMinutes(total)}</strong></td>
+        <td class="num">${formatMinutes(off)}</td>
+        <td class="num">${formatMinutes(def)}</td>
+        <td class="num">${formatMinutes(gk)}</td>
+        <td>${bar}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function formatMinutes(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+function resetStats() {
+  if (!confirm('Reset the live tracker (clock and current positions)? Saved game stats unaffected.')) return;
+  state.players.forEach(p => {
+    p.minutes = { offense: 0, defense: 0, goalie: 0 };
+    p.position = 'bench';
+  });
+  state.clockSeconds = 0;
+  state.clockRunning = false;
+  state.lastTickTime = null;
+  document.getElementById('startStopBtn').textContent = 'Start Clock';
+  document.getElementById('startStopBtn').classList.remove('btn-accent');
+  document.getElementById('startStopBtn').classList.add('btn-primary');
+  updateClockDisplay();
+  saveState();
+  renderStats();
+  renderTracker();
+  showToast('Live tracker reset');
+}
+
+/* ========= FORMATION ========= */
+const formations = {
+  '2-2': {
+    name: '2-2 Formation',
+    desc: '2 defenders and 2 forwards. Balanced setup - everyone has a clear job.',
+    players: [
+      { label: 'GK', role: 'GK', offense: { x: 200, y: 540 }, defense: { x: 200, y: 555 } },
+      { label: 'D1', role: 'DEF', offense: { x: 130, y: 380 }, defense: { x: 130, y: 460 } },
+      { label: 'D2', role: 'DEF', offense: { x: 270, y: 380 }, defense: { x: 270, y: 460 } },
+      { label: 'F1', role: 'FWD', offense: { x: 130, y: 130 }, defense: { x: 130, y: 270 } },
+      { label: 'F2', role: 'FWD', offense: { x: 270, y: 130 }, defense: { x: 270, y: 270 } }
+    ]
+  },
+  '3-1': {
+    name: '3-1 Formation',
+    desc: '3 defenders and 1 forward. Defensive setup - good for protecting a lead.',
+    players: [
+      { label: 'GK', role: 'GK', offense: { x: 200, y: 540 }, defense: { x: 200, y: 555 } },
+      { label: 'D1', role: 'DEF', offense: { x: 100, y: 400 }, defense: { x: 100, y: 470 } },
+      { label: 'D2', role: 'DEF', offense: { x: 200, y: 410 }, defense: { x: 200, y: 480 } },
+      { label: 'D3', role: 'DEF', offense: { x: 300, y: 400 }, defense: { x: 300, y: 470 } },
+      { label: 'F', role: 'FWD', offense: { x: 200, y: 110 }, defense: { x: 200, y: 250 } }
+    ]
+  }
+};
+
+function setFormation(f) {
+  state.formation = f;
+  document.getElementById('form-2-2').classList.toggle('active', f === '2-2');
+  document.getElementById('form-3-1').classList.toggle('active', f === '3-1');
+  saveState();
+  renderFormation();
+}
+
+function setPossession(p) {
+  state.possession = p;
+  document.getElementById('poss-offense').classList.toggle('active', p === 'offense');
+  document.getElementById('poss-defense').classList.toggle('active', p === 'defense');
+  saveState();
+  renderFormation();
+}
+
+function renderFormation() {
+  const config = formations[state.formation];
+  document.getElementById('formationName').textContent = config.name;
+  document.getElementById('formationDesc').textContent = config.desc;
+
+  const group = document.getElementById('formationPlayers');
+  if (group.children.length !== config.players.length) {
+    group.innerHTML = config.players.map((p, i) => `
+      <g class="formation-player" id="fp-${i}">
+        <circle class="player-circle ${p.role === 'GK' ? 'gk' : ''}" cx="0" cy="0" r="22"/>
+        <text class="player-position-label" x="0" y="0">${p.label}</text>
+      </g>
+    `).join('');
+  } else {
+    config.players.forEach((p, i) => {
+      const g = document.getElementById(`fp-${i}`);
+      const circle = g.querySelector('.player-circle');
+      const text = g.querySelector('.player-position-label');
+      circle.setAttribute('class', `player-circle ${p.role === 'GK' ? 'gk' : ''}`);
+      text.textContent = p.label;
+    });
+  }
+
+  config.players.forEach((p, i) => {
+    const pos = state.possession === 'offense' ? p.offense : p.defense;
+    const g = document.getElementById(`fp-${i}`);
+    g.setAttribute('transform', `translate(${pos.x}, ${pos.y})`);
+  });
+}
+
+/* ========= WHATSAPP MESSAGE GENERATOR ========= */
+function getRecord() {
+  let wins = 0, losses = 0, ties = 0;
+  state.games.forEach(g => {
+    if (g.result === 'win') wins++;
+    else if (g.result === 'loss') losses++;
+    else if (g.result === 'tie') ties++;
+  });
+  return { wins, losses, ties, played: wins + losses + ties };
+}
+
+function getLastPlayedGame() {
+  const today = new Date().toISOString().split('T')[0];
+  const past = state.games.filter(g => g.date <= today && g.result).sort((a,b) => b.date.localeCompare(a.date));
+  return past[0] || null;
+}
+
+function getNextGame() {
+  const today = new Date().toISOString().split('T')[0];
+  const upcoming = state.games.filter(g => g.date >= today).sort((a,b) => a.date.localeCompare(b.date));
+  return upcoming[0] || null;
+}
+
+function getEffectiveTone() {
+  if (state.toneOverride && state.toneOverride !== 'auto') return state.toneOverride;
+  const avg = getAverageAge();
+  if (avg === null) return 'fun';
+  if (avg < 8) return 'silly';
+  if (avg < 12) return 'fun';
+  return 'serious';
+}
+
+const motivationalLines = {
+  silly: {
+    afterWin: ['🦄 We WON! High-fives all around! Now let\'s go win another one - the trophy doesn\'t put itself in the case!', '⭐ Another W! You guys were AWESOME! Don\'t get sleepy though - more fun coming!', '🎉 WE DID IT! That was so fun! Keep being awesome teammates this week!'],
+    afterLoss: ['💪 Tough one this week, but you played SO hard. We\'re going to bounce right back!', '🌟 We didn\'t win, but we had so many great moments! Next game is OUR game!', '🎈 Hey team! Even superheroes have tough days. Let\'s come back strong!'],
+    afterTie: ['🤝 We tied! Both teams played hard. Now let\'s WIN the next one!', '🎯 So close! Let\'s practice this week and bring the win home!'],
+    noResult: ['⚽ Get ready, soccer stars! Next game is coming!', '🌟 Hey amazing team! Let\'s have a great week and a SUPER game!']
+  },
+  fun: {
+    afterWin: ['💪 W on the board! Don\'t get too comfortable now - the next team is coming for us. Stay sharp.', '🔥 Great game last week! Wins feel good, but we need to keep working. Practice this week and let\'s go 2-in-a-row!', '⚽ Good win, team! Let\'s prove it wasn\'t a fluke - keep up the work this week.'],
+    afterLoss: ['💪 Tough loss last game, but I saw a lot of fight out there. Keep up the consistent effort - we\'ll get the next one.', '🎯 Not the result we wanted, but we\'re building. Trust the process. Hard work this week pays off Saturday.', '⚽ We came up short, but every great team has setbacks. Let\'s respond with our best practice yet this week.'],
+    afterTie: ['🤝 A tie this week. Some good moments, some to clean up. Let\'s push for the W next time.', '⚽ Even result, but I want more. Let\'s sharpen up at practice this week and chase the win.'],
+    noResult: ['⚽ New week, new chance to get better. See everyone at practice!', '🎯 Let\'s have a strong week and an even stronger game!']
+  },
+  serious: {
+    afterWin: ['💪 Solid win last game. Now the work begins - the team we beat will come back hungrier. Stay locked in this week.', '🎯 Good result, but don\'t mistake one win for a habit. Champions show up every week. Let\'s go.', '⚽ The win was earned. Let\'s make sure the next one feels even better. Full focus at practice.'],
+    afterLoss: ['💪 Tough one. Take 24 hours to feel it, then we move forward. Look at the film, fix the mistakes, come back stronger.', '🎯 Losses teach you more than wins if you let them. This week is about response. Show up and put in the work.', '⚽ Setback, not a step back. Every great team has been here. The question is what we do this week.'],
+    afterTie: ['🤝 A draw doesn\'t move us forward. Let\'s sharpen the details this week and take all three points next game.', '⚽ One point on the table. We left two out there. Put in the work this week to take what\'s ours next time.'],
+    noResult: ['⚽ New week. Let\'s build the habits that win games. See everyone at training.', '🎯 Preparation beats motivation. Let\'s show up ready this week.']
+  }
+};
+
+function getOrangeAssigneeName(gameId) {
+  const playerId = state.orangeAssignments[gameId];
+  if (!playerId) return null;
+  const player = state.players.find(p => p.id.toString() === playerId.toString());
+  return player ? player.name : null;
+}
+
+function regenerateWhatsAppMessage() {
+  const overrideEl = document.getElementById('commsToneOverride');
+  if (overrideEl) state.toneOverride = overrideEl.value;
+  saveState();
+
+  const messageEl = document.getElementById('whatsappMessage');
+  const infoEl = document.getElementById('commsInfo');
+
+  if (state.players.length === 0 || state.games.length === 0) {
+    messageEl.textContent = 'Add players and a schedule first.';
+    infoEl.innerHTML = '<strong>⚠️ Setup needed:</strong> Add players (with ages) in the Roster tab and generate a schedule in the Games tab.';
+    return;
+  }
+
+  const tone = getEffectiveTone();
+  const record = getRecord();
+  const lastGame = getLastPlayedGame();
+  const nextGame = getNextGame();
+  const avg = getAverageAge();
+
+  let toneLabel = tone === 'silly' ? 'Silly (4-7 years)' : tone === 'fun' ? 'Fun + Competitive (8-11 years)' : 'Serious + Motivational (12-15 years)';
+  let toneNote = state.toneOverride === 'auto' ? `(auto from avg age ${avg ? avg.toFixed(1) : '?'})` : '(manual override)';
+  infoEl.innerHTML = `<strong>Tone:</strong> ${toneLabel} ${toneNote}<br><strong>Record:</strong> ${record.wins}W - ${record.losses}L - ${record.ties}T`;
+
+  // Build the message
+  let lines = [];
+  lines.push('⚽ *THPFC Weekly Update* ⚽');
+  lines.push('');
+
+  // Record
+  if (record.played > 0) {
+    lines.push(`📊 *Record:* ${record.wins}W - ${record.losses}L${record.ties > 0 ? ` - ${record.ties}T` : ''}`);
+  }
+
+  // Last game
+  if (lastGame) {
+    const scoreText = (lastGame.ourScore !== '' && lastGame.theirScore !== '')
+      ? `${lastGame.ourScore}-${lastGame.theirScore}`
+      : '';
+    let resultIcon = lastGame.result === 'win' ? '✅' : lastGame.result === 'loss' ? '❌' : '🤝';
+    lines.push(`${resultIcon} *Last game:* ${lastGame.result.toUpperCase()} vs ${lastGame.opponent} ${scoreText}`);
+  }
+
+  lines.push('');
+
+  // Motivational line
+  let motivLines;
+  if (lastGame) {
+    if (lastGame.result === 'win') motivLines = motivationalLines[tone].afterWin;
+    else if (lastGame.result === 'loss') motivLines = motivationalLines[tone].afterLoss;
+    else motivLines = motivationalLines[tone].afterTie;
+  } else {
+    motivLines = motivationalLines[tone].noResult;
+  }
+  const motiv = motivLines[Math.floor(Math.random() * motivLines.length)];
+  lines.push(motiv);
+  lines.push('');
+
+  // Next game
+  if (nextGame) {
+    lines.push(`📅 *Next game:* ${formatDate(nextGame.date)} vs ${nextGame.opponent}`);
+
+    // Orange slice duty
+    const orangePlayer = getOrangeAssigneeName(nextGame.id);
+    if (orangePlayer) {
+      lines.push(`🍊 *Orange slice duty:* ${orangePlayer}'s family`);
+    } else {
+      lines.push(`🍊 *Orange slice duty:* Need a volunteer! Reply if you can bring slices.`);
+    }
+  } else {
+    lines.push('🏆 Season complete! Great work, team!');
+  }
+
+  lines.push('');
+  lines.push('See everyone at practice. Go THPFC! 💚💛');
+
+  messageEl.textContent = lines.join('\n');
+}
+
+function copyWhatsAppMessage() {
+  const text = document.getElementById('whatsappMessage').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Message copied! Paste into WhatsApp.');
+  }).catch(() => {
+    showToast('Could not copy. Select the text and copy manually.');
+  });
+}
+
+/* ========= PARENTS ========= */
+const parentTemplates = [
+  {
+    title: 'Welcome to THPFC',
+    when: 'Beginning of season',
+    body: `Hi THPFC families,
+
+Welcome to the season! I'm thrilled to coach your kids this year.
+
+A quick word about what we're building: at Toronto High Park Football Club, we treat this season as more than wins and losses. We're building a development program focused on growing your kids into all-stars - both on and off the field. That means showing up, working hard, supporting teammates, and being good sports.
+
+Here's what to expect from me:
+- Equal play time across the season for every player
+- Practices that build skills and confidence
+- A focus on effort and improvement over winning
+- Open communication - reach out anytime
+
+Here's what I'll ask of you:
+- Get them to practice on time, ready to play
+- Cheer effort, not just goals
+- Save coaching for the coaches (more on that soon)
+- Bring your energy - they feed off it
+
+We're going to have a great season. Let's go.
+
+Coach [YOUR NAME]
+Toronto High Park Football Club`
+  },
+  {
+    title: 'At-Home Practice Ideas',
+    when: 'Send weekly during the season',
+    body: `Hi THPFC families,
+
+Want to help your kid level up between practices? Here are five 10-minute drills you can do in any backyard or driveway:
+
+1. WALL PASSES (5 mins)
+Find any wall. Pass the ball against it with the inside of the foot. 25 reps each foot. Builds the most important skill: the inside-of-foot pass.
+
+2. CONE DRIBBLE (5 mins)
+Set up 5 objects (water bottles, shoes, anything) in a line. Dribble through them and back. Use both feet. Speed up over time.
+
+3. JUGGLING CHALLENGE (3 mins)
+Even 2-3 in a row is great for kids this age. Builds touch and confidence. Track personal bests on the fridge.
+
+4. 1v1 WITH A PARENT (5 mins)
+You stand in goal, they try to score. Switch. Builds aggression and finishing.
+
+5. TARGET PRACTICE (5 mins)
+Set up a target (cone, garbage can, whatever). Pass at it from increasing distances. Aim is everything.
+
+Don't make it feel like homework. Keep it fun. 10 minutes a couple times a week makes a huge difference.
+
+Coach [YOUR NAME]`
+  },
+  {
+    title: 'Sideline Etiquette',
+    when: 'Send before first game',
+    body: `Hi THPFC families,
+
+A quick note before our first game on what helps your kid most from the sideline.
+
+THE BIG ONE: Cheer, don't coach.
+
+Kids get confused (and stressed) when they hear instructions from parents, coaches, and teammates all at once. They start playing for the loudest voice instead of the game in front of them.
+
+Here's what helps:
+- Cheer good plays from EITHER team. Models good sportsmanship.
+- Encourage effort: "Great hustle!" "Nice try!" "Way to be there!"
+- Stay positive even when things go sideways. They watch you.
+- Skip the play-by-play instructions ("Pass it!" "Shoot!" "Get back!")
+
+What kids waiting to play can do:
+- Cheer their teammates by name
+- Stay hydrated and ready - they go in fast
+- Watch the game and learn (I'll often ask them what they noticed)
+- Stretch and stay loose
+
+Post-game, the magic question is: "Did you have fun?" Save the analysis for the coaches.
+
+Thanks for the partnership.
+
+Coach [YOUR NAME]
+Toronto High Park Football Club`
+  },
+  {
+    title: 'Mid-Season Check-In',
+    when: 'Halfway through season',
+    body: `Hi THPFC families,
+
+We're halfway through the season - a quick check-in.
+
+What I'm seeing:
+- The kids are passing more, dribbling with their heads up, and supporting each other on the field. Real progress.
+- They've grown as teammates. The bench is louder, the high-fives are bigger.
+
+What I'd love your help with:
+- Keep getting them to practice. Consistency is everything at this age.
+- Talk about specific moments after games ("That pass to [teammate] was awesome") rather than goals/wins.
+- Encourage them to play in the backyard. Unstructured play is where touch develops.
+
+If your kid is having a tough stretch (we all do), let me know. I'd rather hear it from you so I can support them at practice.
+
+Half a season left. Let's finish strong.
+
+Coach [YOUR NAME]
+Toronto High Park Football Club`
+  },
+  {
+    title: 'End-of-Season Thank You',
+    when: 'Final week',
+    body: `Hi THPFC families,
+
+What a season.
+
+Watching your kids grow over these past months has been the highlight. They came in as a group of individuals and they're leaving as a team. That's the real win.
+
+A few specific shoutouts:
+- They learned to pass and move. Huge for their age.
+- They learned to lose with class and win with humility.
+- They cheered each other by name. That's culture.
+
+Thank you for trusting me with them, for the rides, the orange slices, the sideline cheers, and for raising kids worth coaching.
+
+THPFC will be back next season. Hope to see you all there.
+
+Coach [YOUR NAME]
+Toronto High Park Football Club`
+  }
+];
+
+const parentTips = [
+  { icon: '🥪', title: 'Feed Them Smart', body: 'Light meal 2 hours before games. Banana or granola bar 30 min before. Water always.' },
+  { icon: '😴', title: 'Sleep Beats Skill', body: 'A well-rested kid plays better than a coached one. Game-day sleep starts the night before.' },
+  { icon: '🗣️', title: 'Ask Better Questions', body: 'Skip "Did you win?" Try "What did you enjoy?" or "What did you try that was new?"' },
+  { icon: '⚽', title: 'Keep a Ball at Home', body: 'A ball in the yard or by the door = constant touches. The best players touched a ball every day at this age.' },
+  { icon: '🤝', title: 'Praise the Process', body: 'Praise effort and decisions, not just goals. "Great pass" beats "great goal" 9 times out of 10.' },
+  { icon: '👀', title: 'Watch Together', body: 'Watch a real match together (TFC, EPL, World Cup). Ask what they notice. Builds soccer IQ.' }
+];
+
+function renderTemplates() {
+  const list = document.getElementById('templatesList');
+  list.innerHTML = parentTemplates.map((t, i) => `
+    <div class="template-card">
+      <div class="template-card-header">
+        <div>
+          <div class="template-title">${escapeHtml(t.title)}</div>
+          <div style="font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">${escapeHtml(t.when)}</div>
+        </div>
+        <button class="btn btn-primary btn-small" onclick="copyTemplate(${i})">📋 Copy</button>
+      </div>
+      <div class="template-body">${escapeHtml(t.body)}</div>
+    </div>
+  `).join('');
+}
+
+function copyTemplate(i) {
+  const t = parentTemplates[i];
+  navigator.clipboard.writeText(t.body).then(() => {
+    showToast(`"${t.title}" copied`);
+  }).catch(() => {
+    showToast('Could not copy.');
+  });
+}
+
+function renderParentTips() {
+  const grid = document.getElementById('parentTipsGrid');
+  grid.innerHTML = parentTips.map(t => `
+    <div class="parent-tip">
+      <div class="parent-tip-icon">${t.icon}</div>
+      <h4>${escapeHtml(t.title)}</h4>
+      <p>${escapeHtml(t.body)}</p>
+    </div>
+  `).join('');
+}
+
+/* ========= ORANGES ========= */
+function renderOranges() {
+  const list = document.getElementById('orangeAssignmentList');
+
+  if (state.games.length === 0) {
+    list.innerHTML = '<div class="empty-state">No games scheduled. Add a schedule in the Games tab first.</div>';
+    document.getElementById('nextOrangeName').textContent = 'No games yet';
+    document.getElementById('nextOrangeDate').textContent = '';
+    return;
+  }
+
+  if (state.players.length === 0) {
+    list.innerHTML = '<div class="empty-state">Add players in the Roster tab first.</div>';
+    document.getElementById('nextOrangeName').textContent = 'No players yet';
+    document.getElementById('nextOrangeDate').textContent = '';
+    return;
+  }
+
+  const today = new Date().toISOString().split('T')[0];
+  const sorted = [...state.games].sort((a,b) => a.date.localeCompare(b.date));
+  const upcoming = sorted.filter(g => g.date >= today);
+  const next = upcoming[0];
+
+  if (next) {
+    const playerId = state.orangeAssignments[next.id];
+    const player = playerId ? state.players.find(p => p.id.toString() === playerId.toString()) : null;
+    document.getElementById('nextOrangeName').textContent = player ? `${player.name}'s Family` : 'Not assigned';
+    document.getElementById('nextOrangeDate').textContent = `vs ${next.opponent} · ${formatDate(next.date)}`;
+  } else {
+    document.getElementById('nextOrangeName').textContent = 'Season complete';
+    document.getElementById('nextOrangeDate').textContent = '';
+  }
+
+  const playerOptions = [...state.players].sort((a,b) => parseInt(a.number) - parseInt(b.number)).map(p =>
+    `<option value="${p.id}">${escapeHtml(p.name)} (#${escapeHtml(p.number)})</option>`
+  ).join('');
+
+  list.innerHTML = sorted.map(g => {
+    const isPast = g.date < today;
+    const isNext = next && g.id === next.id;
+    const assignedId = state.orangeAssignments[g.id] || '';
+    return `
+      <div class="slice-row ${isPast ? 'past' : ''} ${isNext ? 'next' : ''}">
+        <div>
+          <div class="slice-date">${formatDate(g.date)} ${isPast ? '✓' : ''} ${isNext ? '<span style="color: var(--accent-orange); font-size: 0.75rem; font-weight: 700;">· UP NEXT</span>' : ''}</div>
+          <div class="slice-assignee">vs ${escapeHtml(g.opponent)}</div>
+        </div>
+        <select onchange="updateOrangeAssignment(${g.id}, this.value)" style="max-width: 220px; min-height: 36px; padding: 6px 10px; font-size: 0.85rem;">
+          <option value="">— Select player —</option>
+          ${playerOptions.replace(`value="${assignedId}"`, `value="${assignedId}" selected`)}
+        </select>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateOrangeAssignment(gameId, playerId) {
+  if (playerId) {
+    state.orangeAssignments[gameId] = playerId;
+  } else {
+    delete state.orangeAssignments[gameId];
+  }
+  saveState();
+
+  // Update header without full re-render
+  const today = new Date().toISOString().split('T')[0];
+  const sorted = [...state.games].sort((a,b) => a.date.localeCompare(b.date));
+  const upcoming = sorted.filter(g => g.date >= today);
+  const next = upcoming[0];
+  if (next && next.id === gameId) {
+    const player = playerId ? state.players.find(p => p.id.toString() === playerId.toString()) : null;
+    document.getElementById('nextOrangeName').textContent = player ? `${player.name}'s Family` : 'Not assigned';
+  }
+}
+
+function autoAssignOranges() {
+  if (state.players.length === 0 || state.games.length === 0) {
+    showToast('Need players and games first');
+    return;
+  }
+
+  if (!confirm('Auto-assign all unassigned upcoming games? Existing assignments will be kept.')) return;
+
+  const today = new Date().toISOString().split('T')[0];
+  const sorted = [...state.games].sort((a,b) => a.date.localeCompare(b.date));
+  const upcomingUnassigned = sorted.filter(g => g.date >= today && !state.orangeAssignments[g.id]);
+
+  // Count current assignments per player
+  const counts = {};
+  state.players.forEach(p => counts[p.id] = 0);
+  Object.values(state.orangeAssignments).forEach(pid => {
+    if (counts[pid] !== undefined) counts[pid]++;
+  });
+
+  upcomingUnassigned.forEach(g => {
+    // Pick player with fewest assignments
+    const sortedPlayers = state.players.slice().sort((a,b) => (counts[a.id] || 0) - (counts[b.id] || 0));
+    const chosen = sortedPlayers[0];
+    state.orangeAssignments[g.id] = chosen.id.toString();
+    counts[chosen.id]++;
+  });
+
+  saveState();
+  renderOranges();
+  showToast(`Assigned ${upcomingUnassigned.length} game(s)`);
+}
+
+/* ========= RESOURCES ========= */
+const resources = {
+  team: [
+    { title: 'Set a Team Mission', body: 'In the first practice, ask players what they want from the season - fun, winning, learning. Write it on a poster they all sign. Refer back to it when motivation dips.' },
+    { title: 'Captain Rotation', body: 'Rotate the captain role weekly. Every player learns leadership and feels ownership. Picks who leads the warm-up huddle and post-game cheer.' },
+    { title: 'Buddy System', body: 'Pair an experienced player with a newer one each week. Builds friendships across skill levels and helps quieter kids feel included.' },
+    { title: 'End-of-Practice Circle', body: 'End every practice with a short circle. Each player shares one thing they did well and one thing a teammate did well. Builds positivity fast.' },
+    { title: 'Team Cheer or Chant', body: 'Let the players invent it. Use it before kickoff and after wins or tough losses. It becomes part of their identity.' },
+    { title: 'Celebrate Effort, Not Just Goals', body: 'Call out hustle plays, defensive stops, and good passes - not just scoring. Kids who never score still feel valued.' }
+  ],
+  icebreakers: [
+    { title: 'Two Truths and a Soccer Lie', body: 'Each player shares two true things and one false thing about their soccer experience. Team guesses the lie. Quick way to learn backgrounds.' },
+    { title: 'Name Game with a Move', body: 'Each player says their name plus a soccer move (toe-tap, step-over, etc.). Next player repeats all previous names and moves before adding their own.' },
+    { title: 'Favourite Pro', body: 'Go around the circle: name your favourite pro player and one thing you want to learn from them. Sets goals and starts conversations.' },
+    { title: 'Soccer Story Circle', body: 'Each player tells their best or funniest soccer memory in 30 seconds. Great for the first practice of the season.' },
+    { title: 'Find Someone Who...', body: 'Hand out a sheet with prompts (someone who has scored a goal, someone who plays another sport, someone who has a sibling on a team). Players sign each others sheets.' }
+  ],
+  games: [
+    { title: 'Sharks and Minnows (Dribbling)', body: 'One or two "sharks" stand in the middle. Minnows dribble across trying not to get their ball kicked away. Tagged minnows become sharks. Teaches close control under pressure.' },
+    { title: 'Numbers Game (Awareness)', body: 'Players dribble in a square. Coach calls a number - that many players form a group with their balls. Teaches scanning and quick decisions.' },
+    { title: '4v4 Small-Sided Games', body: 'No goalie, small goals, lots of touches. Best way to develop everything: passing, dribbling, decision-making, defending. Run these often.' },
+    { title: 'Rondo / Keep Away (Passing)', body: '4 or 5 players in a circle, 1 or 2 in the middle. Outside players keep the ball away with one or two-touch passes. Builds quick passing and pressing.' },
+    { title: 'World Cup (Finishing)', body: 'Pair players into "countries." Coach feeds balls into the box. First team to score advances. Last team out is eliminated. Teaches finishing and competing.' },
+    { title: 'King of the Ring (1v1)', body: 'Set a round area. All players inside with a ball. Try to keep your ball in while knocking others out. Teaches shielding and aggressive defending.' },
+    { title: 'Cone Slalom Relay (Dribbling)', body: 'Set up two parallel slalom courses. Teams race through, dribbling the ball. Adds competition to a basic skill.' },
+    { title: 'Pass and Move Triangle', body: 'Three players pass in a triangle, then move to the next spot after their pass. Teaches the fundamental "pass and move" habit.' }
+  ]
+};
+
+document.querySelectorAll('.resource-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.resource-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderResources(tab.dataset.resource);
+  });
+});
+
+function renderResources(category) {
+  const container = document.getElementById('resourceContent');
+  const items = resources[category] || [];
+  container.innerHTML = items.map(item => `
+    <div class="resource-item">
+      <h4>${escapeHtml(item.title)}</h4>
+      <p>${escapeHtml(item.body)}</p>
+    </div>
+  `).join('');
+}
+
+/* ========= UTILS ========= */
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr + 'T12:00:00');
+  return d.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+document.getElementById('playerModal').addEventListener('click', (e) => {
+  if (e.target.id === 'playerModal') closeModal();
+});
+
+document.getElementById('resultModal').addEventListener('click', (e) => {
+  if (e.target.id === 'resultModal') closeResultModal();
+});
+
+document.getElementById('playerName').addEventListener('keypress', e => {
+  if (e.key === 'Enter') document.getElementById('playerNumber').focus();
+});
+
+/* ========= INIT ========= */
+loadState();
+renderRoster();
+renderGames();
+renderTracker();
+renderActiveGameBanner();
+updateClockDisplay();
+renderResources('team');
+renderTemplates();
+renderParentTips();
+renderFormation();
+renderOranges();
+
+// Set tone override dropdown to match state
+if (state.toneOverride) {
+  document.getElementById('commsToneOverride').value = state.toneOverride;
+}
+
+window.addEventListener('beforeunload', () => {
+  flushCurrentGameMinutes();
+  saveState();
+});
+</script>
+
+</body>
+</html>
